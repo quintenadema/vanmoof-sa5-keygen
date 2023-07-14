@@ -1,22 +1,34 @@
-import { utils, getPublicKeyAsync } from "@noble/ed25519";
-import { randomBytes, createHash } from 'crypto';
+const crypto = require('crypto');
+
 global.crypto = {
 	getRandomValues: function(buffer) {
-		return randomBytes(buffer.length);
+		return crypto.randomBytes(buffer.length);
 	},
 	subtle: {
 		digest: async function(algorithm, buffer) {
 			if (algorithm !== 'SHA-512') {
 				throw new Error(`Unsupported algorithm ${algorithm}`);
 			}
-			const hash = createHash('sha512');
+			const hash = crypto.createHash('sha512');
 			hash.update(Buffer.from(buffer));
 			return Uint8Array.from(hash.digest());
 		}
 	}
 };
+
+let utils, getPublicKeyAsync;
+
+async function initialize() {
+	const ed25519 = await import('@noble/ed25519');
+	utils = ed25519.utils;
+	getPublicKeyAsync = ed25519.getPublicKeyAsync;
+}
+
 module.exports = {
 	generate: async function() {
+		if (!utils || !getPublicKeyAsync) {
+			await initialize();
+		}
 		let privateKey = utils.randomPrivateKey();
 		let publicKey = await getPublicKeyAsync(privateKey);
 
@@ -24,7 +36,7 @@ module.exports = {
 		publicKey = Buffer.from(publicKey).toString('base64');
 
 		return {
-			publicKey: publicKey
+			publicKey: publicKey,
 			privateKey: privateKey
 		}
 	}
