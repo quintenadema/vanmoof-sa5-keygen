@@ -1,0 +1,24 @@
+{
+  "type": "module",
+  "name": "vanmoof-sa5-keygen",
+  "version": "1.0.0",
+  "description": "Node package to generate keys for Vanmoof S5 and VanMoof A5",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quintenadema/vanmoof-sa5-keygen.git"
+  },
+  "author": "Quinten Adema",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quintenadema/vanmoof-sa5-keygen/issues"
+  },
+  "homepage": "https://github.com/quintenadema/vanmoof-sa5-keygen#readme",
+  "dependencies": {
+    "@noble/ed25519": "^2.0.0",
+    "crypto": "^1.0.1"
+  }
+}
