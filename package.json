@@ -1,5 +1,5 @@
 {
-  "type": "module",
+  "type": "commonjs",
   "name": "vanmoof-sa5-keygen",
   "version": "1.0.0",
   "description": "Node package to generate keys for Vanmoof S5 and VanMoof A5",
